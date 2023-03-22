@@ -1,11 +1,23 @@
 <template>
-  <div>
-    <v-file-input v-model="file" label="Upload Image"></v-file-input>
-    <button @click="uploadImage">Submit</button>
-    <img v-if="imageUrl" :src="imageUrl" />
-  </div>
+  <v-app>
+    <v-container>
+      <v-app-bar app color="light-blue" white>
+        <v-toolbar-title>My App</v-toolbar-title>
+        <v-spacer />
+        <v-btn>Log In</v-btn>
+      </v-app-bar>
+      <v-main>
+        <v-container>
+          <div>
+            <v-file-input v-model="file" label="Upload Image" />
+            <button @click="uploadImage">Submit</button>
+            <img v-if="imageUrl" :src="imageUrl" />
+          </div>
+        </v-container>
+      </v-main>
+    </v-container>
+  </v-app>
 </template>
-
 <script>
 import axios from 'axios'
 
