@@ -1,12 +1,17 @@
 <template>
   <div>
+    <div class="d-flex justify-center">
+      <v-card-title>
+      All Image List
+      </v-card-title>
+    </div>
     <v-row>
       <v-col v-for="item in items" :key="item.id" cols="12" sm="6" md="4">
         <v-card class="mb-4">
           <v-img :src="item.image" height="200px">
-        <v-img :src="'data:image/jpeg;base64,' + item.data" style="height: 200px;" />
+            <v-img :src="'data:image/jpeg;base64,' + item.data" style="height: 200px;" />
             <v-expand-transition>
-              <div v-if="item.showOverlay" class="overlay"></div>
+              <div v-if="item.showOverlay" class="overlay" />
             </v-expand-transition>
           </v-img>
           <v-card-title>{{ item.id }}</v-card-title>
@@ -22,6 +27,7 @@
 import axios from 'axios'
 
 export default {
+
   data () {
     return {
       items: []

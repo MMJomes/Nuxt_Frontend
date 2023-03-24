@@ -1,6 +1,13 @@
 <template>
   <v-app>
     <v-container>
+      <v-app-bar app color="light-blue" white>
+        <v-toolbar-title>Sample Image Upload Code Test Application</v-toolbar-title>
+        <v-spacer />
+        <v-btn  @click="gotoImageList">
+        All Image Lists
+      </v-btn>
+      </v-app-bar>
       <v-main>
         <v-container>
           <div>
@@ -29,7 +36,7 @@ export default {
   },
   methods: {
     gotoImageList () {
-      this.$router.push('/allimagelist')
+      this.$router.push('/about')
     },
     uploadImage () {
       if (!this.file) {
@@ -37,6 +44,13 @@ export default {
         return
       } else {
         this.error = ''
+      }
+      if (!this.file.type.includes('image')) {
+        this.showSuccess = false
+        this.showError = true
+        alert('Please select an image')
+        this.file = null
+        return
       }
       const formData = new FormData()
       formData.append('image', this.file)
