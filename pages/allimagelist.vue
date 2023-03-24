@@ -14,8 +14,8 @@
               <div v-if="item.showOverlay" class="overlay" />
             </v-expand-transition>
           </v-img>
-          <v-card-title>{{ item.id }}</v-card-title>
-          <v-card-text>{{ item.name }}</v-card-text>
+          <v-card-title><span style="color: aqua;"> Image Name</span>  :{{ item.name }}</v-card-title>
+          <v-card-subtitle><span style="color: black;">Updated At: {{ uploaded_at }} </span></v-card-subtitle>
         </v-card>
       </v-col>
     </v-row>
@@ -30,6 +30,12 @@ export default {
 
   data () {
     return {
+      imageuploadtime: null,
+      second: null,
+      minutes: null,
+      hours: null,
+      days: null,
+      uploaded_at: null,
       items: []
     }
   },
@@ -37,9 +43,17 @@ export default {
     async fetchData () {
       try {
         const response = await axios.get('http://localhost:4000/api/mydata')
+        console.log(response.data)
         if (response.status === 200) {
-          console.log(response.data)
           this.items = response.data
+          this.imageuploadtime = Date.now() - response.data[0].id
+          this.second = Math.floor(this.imageuploadtime / 1000)
+          this.minutes = Math.floor(this.second / 60)
+          this.hours = Math.floor(this.minutes / 60)
+          this.days = Math.floor(this.hours / 24)
+          this.uploaded_at = ` ${this.days} days, ${this.hours % 24} hours, ${this.minutes % 60} minutes, and ${this.second % 60} seconds.`
+
+          // console.log(this.imageuploadtime)
         } else {
           console.log(response.data)
           this.items = []
@@ -52,6 +66,7 @@ export default {
           })
         }
       } catch (error) {
+        console.log('ED')
         console.error(error)
       }
     }
